@@ -1,0 +1,30 @@
+// TodoFilter组件 - 提供筛选待办事项的控制界面
+
+// 导入依赖
+import React from 'react';
+
+// Props接收
+function TodoFilter({ filter, setFilter }) {
+  
+  // 筛选选项配置 - 数据驱动UI
+  const filterOptions = [
+    { value: 'all', label: '全部' },
+    { value: 'active', label: '未完成' },
+    { value: 'completed', label: '已完成' }
+  ];
+  
+  // 渲染UI - 映射filterOptions数组生成筛选按钮
+  return (
+    <Container>
+      {filterOptions.map(option => (
+        <FilterButton
+          key={option.value}
+          active={filter === option.value}
+          onClick={() => setFilter(option.value)}
+        >
+          {option.label}
+        </FilterButton>
+      ))}
+    </Container>
+  );
+} 

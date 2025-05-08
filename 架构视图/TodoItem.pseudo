@@ -1,0 +1,27 @@
+// TodoItem组件 - 显示单个待办事项及其操作选项
+
+// 导入依赖
+import React from 'react';
+
+// Props接收
+function TodoItem({ todo, toggleTodo, deleteTodo }) {
+  
+  // 无局部状态 - 纯展示组件
+
+  // 渲染UI
+  return (
+    <Container className={todo.completed ? 'completed' : ''}>
+      <Content>
+        <Checkbox 
+          checked={todo.completed} 
+          onChange={() => toggleTodo(todo.id)} 
+        />
+        <Text>{todo.text}</Text>
+      </Content>
+      <DeleteButton 
+        onClick={() => deleteTodo(todo.id)}>
+        删除
+      </DeleteButton>
+    </Container>
+  );
+} 

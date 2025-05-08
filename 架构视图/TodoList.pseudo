@@ -1,0 +1,30 @@
+// TodoList组件 - 渲染待办事项列表，处理空列表场景
+
+// 导入依赖
+import React from 'react';
+import TodoItem from './TodoItem';
+
+// Props接收
+function TodoList({ todos, toggleTodo, deleteTodo }) {
+
+  // 无局部状态 - 纯展示组件
+  
+  // 处理空列表情况
+  if (todos.length === 0) {
+    return <EmptyMessage>没有待办事项，请添加新的待办事项！</EmptyMessage>;
+  }
+  
+  // 渲染UI - 映射todos数组生成TodoItem组件列表
+  return (
+    <Container>
+      {todos.map(todo => (
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          toggleTodo={toggleTodo}
+          deleteTodo={deleteTodo}
+        />
+      ))}
+    </Container>
+  );
+} 

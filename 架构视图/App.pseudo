@@ -1,0 +1,37 @@
+// App组件 - 应用核心，管理全局状态与组件组合
+
+// 导入依赖
+import { React, useState, useEffect } from 'react';
+import { TodoForm, TodoList, TodoFilter } from './components';
+
+// 状态定义
+const [todos, setTodos] = useState([]); // 待办事项列表状态
+const [filter, setFilter] = useState('all'); // 筛选条件状态：all, active, completed
+
+// 副作用 - 从本地存储加载数据
+useEffect(() => loadTodosFromLocalStorage(), []);
+
+// 副作用 - 将数据保存到本地存储
+useEffect(() => saveTodosToLocalStorage(todos), [todos]);
+
+// 添加待办事项
+function addTodo(text) => setTodos([...todos, { id: generateUniqueId(), text, completed: false }]);
+
+// 切换待办事项完成状态
+function toggleTodo(id) => setTodos(todos.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo));
+
+// 删除待办事项
+function deleteTodo(id) => setTodos(todos.filter(todo => todo.id !== id));
+
+// 根据筛选条件过滤待办事项
+const filteredTodos = todos.filter(todo => filterCondition(todo, filter));
+
+// 渲染UI
+return (
+  <Layout>
+    <Title>待办事项</Title>
+    <TodoForm addTodo={addTodo} />
+    <TodoFilter filter={filter} setFilter={setFilter} />
+    <TodoList todos={filteredTodos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
+  </Layout>
+); 
